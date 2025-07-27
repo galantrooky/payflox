@@ -18,13 +18,25 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog"
 import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
+import {
   CreditCard,
   DollarSign,
   TrendingUp,
   Users,
   ArrowUpRight,
   ArrowDownRight,
+  Bell,
+  Search,
   Settings,
+  LogOut,
   BarChart3,
   Link,
   Store,
@@ -32,6 +44,10 @@ import {
   Home,
   Plus,
   Download,
+  Menu,
+  ChevronLeft,
+  Moon,
+  Sun,
   Eye,
   MoreHorizontal,
   Zap,
@@ -227,22 +243,24 @@ export default function PayfloxDashboard() {
             <CardContent>
               <div className="space-y-4">
                 {cryptoBalances.map((crypto, index) => (
-                  <div key={index} className="flex items-center justify-between p-4 border dark:border-gray-600 rounded-lg">
+                  <div
+                    key={index}
+                    className="flex items-center justify-between p-4 border dark:border-gray-600 rounded-lg"
+                  >
                     <div className="flex items-center space-x-4">
                       <div className="w-10 h-10 bg-gradient-to-r from-orange-400 to-yellow-500 rounded-full flex items-center justify-center">
                         <span className="text-white font-bold text-sm">{crypto.symbol}</span>
                       </div>
                       <div>
                         <h3 className="font-medium dark:text-white">{crypto.name}</h3>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">{crypto.balance} {crypto.symbol}</p>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">
+                          {crypto.balance} {crypto.symbol}
+                        </p>
                       </div>
                     </div>
                     <div className="text-right">
                       <p className="font-medium dark:text-white">{crypto.usdValue}</p>
-                      <p className={cn(
-                        "text-sm",
-                        crypto.change.startsWith('+') ? "text-green-600" : "text-red-600"
-                      )}>
+                      <p className={cn("text-sm", crypto.change.startsWith("+") ? "text-green-600" : "text-red-600")}>
                         {crypto.change}
                       </p>
                     </div>
@@ -260,7 +278,10 @@ export default function PayfloxDashboard() {
             <CardContent>
               <div className="space-y-4">
                 {exchangeRates.map((rate, index) => (
-                  <div key={index} className="flex items-center justify-between p-4 border dark:border-gray-600 rounded-lg">
+                  <div
+                    key={index}
+                    className="flex items-center justify-between p-4 border dark:border-gray-600 rounded-lg"
+                  >
                     <div className="flex items-center space-x-4">
                       <div className="w-8 h-8 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full flex items-center justify-center">
                         <span className="text-white font-bold text-xs">{rate.crypto}</span>
@@ -269,10 +290,7 @@ export default function PayfloxDashboard() {
                     </div>
                     <div className="text-right">
                       <p className="font-medium dark:text-white">{rate.rate}</p>
-                      <p className={cn(
-                        "text-sm",
-                        rate.change.startsWith('+') ? "text-green-600" : "text-red-600"
-                      )}>
+                      <p className={cn("text-sm", rate.change.startsWith("+") ? "text-green-600" : "text-red-600")}>
                         {rate.change}
                       </p>
                     </div>
@@ -733,7 +751,10 @@ export default function PayfloxDashboard() {
                 { plan: "Pro Plan", price: "$19.99/month", subscribers: 234, status: "Active" },
                 { plan: "Enterprise Plan", price: "$49.99/month", subscribers: 89, status: "Active" },
               ].map((subscription, index) => (
-                <div key={index} className="flex items-center justify-between p-4 border dark:border-gray-600 rounded-lg">
+                <div
+                  key={index}
+                  className="flex items-center justify-between p-4 border dark:border-gray-600 rounded-lg"
+                >
                   <div>
                     <h3 className="font-medium dark:text-white">{subscription.plan}</h3>
                     <p className="text-sm text-gray-600 dark:text-gray-400">{subscription.price}</p>
@@ -897,7 +918,10 @@ export default function PayfloxDashboard() {
                 { title: "Service Fee", amount: "$150.00", status: "Expired", date: "3 days ago" },
                 { title: "Consultation", amount: "$200.00", status: "Paid", date: "1 week ago" },
               ].map((link, index) => (
-                <div key={index} className="flex items-center justify-between p-4 border dark:border-gray-600 rounded-lg">
+                <div
+                  key={index}
+                  className="flex items-center justify-between p-4 border dark:border-gray-600 rounded-lg"
+                >
                   <div>
                     <h3 className="font-medium dark:text-white">{link.title}</h3>
                     <p className="text-sm text-gray-600 dark:text-gray-400">{link.date}</p>
@@ -1075,7 +1099,13 @@ export default function PayfloxDashboard() {
           <CardContent>
             <div className="space-y-4">
               {[
-                { id: "PO-001", amount: "$2,500.00", status: "Completed", date: "Jan 15, 2024", method: "Bank Transfer" },
+                {
+                  id: "PO-001",
+                  amount: "$2,500.00",
+                  status: "Completed",
+                  date: "Jan 15, 2024",
+                  method: "Bank Transfer",
+                },
                 {
                   id: "PO-002",
                   amount: "$1,800.00",
@@ -1083,10 +1113,19 @@ export default function PayfloxDashboard() {
                   date: "Jan 12, 2024",
                   method: "Bank Transfer",
                 },
-                { id: "PO-003", amount: "$3,200.00", status: "Completed", date: "Jan 10, 2024", method: "Bank Transfer" },
+                {
+                  id: "PO-003",
+                  amount: "$3,200.00",
+                  status: "Completed",
+                  date: "Jan 10, 2024",
+                  method: "Bank Transfer",
+                },
                 { id: "PO-004", amount: "$950.00", status: "Failed", date: "Jan 8, 2024", method: "Bank Transfer" },
               ].map((payout, index) => (
-                <div key={index} className="flex items-center justify-between p-4 border dark:border-gray-600 rounded-lg">
+                <div
+                  key={index}
+                  className="flex items-center justify-between p-4 border dark:border-gray-600 rounded-lg"
+                >
                   <div>
                     <h3 className="font-medium dark:text-white">{payout.id}</h3>
                     <p className="text-sm text-gray-600 dark:text-gray-400">
@@ -1177,7 +1216,9 @@ export default function PayfloxDashboard() {
           <Card className="dark:bg-gray-800 dark:border-gray-700">
             <CardHeader>
               <CardTitle className="dark:text-white">Virtual Accounts</CardTitle>
-              <CardDescription className="dark:text-gray-400">Dedicated accounts for different purposes</CardDescription>
+              <CardDescription className="dark:text-gray-400">
+                Dedicated accounts for different purposes
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
@@ -1355,421 +1396,571 @@ export default function PayfloxDashboard() {
                 { name: "Premium Course Bundle", price: "$299.00", sales: 45, revenue: "$13,455" },
                 { name: "Digital Marketing Guide", price: "$49.99", sales: 123, revenue: "$6,149" },
                 { name: "Business Template Pack", price: "$19.99", sales: 89, revenue: "$1,779" },
-              { name: "Consultation Session", price: "$150.00", sales: 12, revenue: "$1,800" },
-            ].map((product, index) => (
-              <div key={index} className="flex items-center justify-between p-4 border dark:border-gray-600 rounded-lg">
+                { name: "Consultation Session", price: "$150.00", sales: 12, revenue: "$1,800" },
+              ].map((product, index) => (
+                <div
+                  key={index}
+                  className="flex items-center justify-between p-4 border dark:border-gray-600 rounded-lg"
+                >
+                  <div>
+                    <h3 className="font-medium dark:text-white">{product.name}</h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                      {product.price} • {product.sales} sales
+                    </p>
+                  </div>
+                  <div className="text-right">
+                    <p className="font-medium text-green-600">{product.revenue}</p>
+                    <Button variant="ghost" size="sm" className="dark:hover:bg-green-500/20">
+                      <Eye className="w-4 h-4 mr-1" />
+                      View
+                    </Button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Add Product Modal */}
+        <Dialog open={showCreateModal} onOpenChange={setShowCreateModal}>
+          <DialogContent className="sm:max-w-[425px] dark:bg-gray-800 dark:border-gray-700">
+            <DialogHeader>
+              <DialogTitle className="dark:text-white">Add New Product</DialogTitle>
+              <DialogDescription className="dark:text-gray-400">Add a new product to your store.</DialogDescription>
+            </DialogHeader>
+            <div className="grid gap-4 py-4">
+              <div className="grid gap-2">
+                <Label htmlFor="product-name" className="dark:text-white">
+                  Product Name
+                </Label>
+                <Input
+                  id="product-name"
+                  placeholder="e.g., Premium Course"
+                  className="dark:bg-gray-700 dark:border-gray-600"
+                />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="product-price" className="dark:text-white">
+                  Price
+                </Label>
+                <Input
+                  id="product-price"
+                  placeholder="e.g., 99.99"
+                  type="number"
+                  className="dark:bg-gray-700 dark:border-gray-600"
+                />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="product-category" className="dark:text-white">
+                  Category
+                </Label>
+                <Select>
+                  <SelectTrigger className="dark:bg-gray-700 dark:border-gray-600">
+                    <SelectValue placeholder="Select category" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="digital">Digital Product</SelectItem>
+                    <SelectItem value="physical">Physical Product</SelectItem>
+                    <SelectItem value="service">Service</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="product-description" className="dark:text-white">
+                  Description
+                </Label>
+                <Textarea
+                  id="product-description"
+                  placeholder="Describe your product..."
+                  className="dark:bg-gray-700 dark:border-gray-600"
+                />
+              </div>
+              <div className="flex items-center space-x-2">
+                <Switch id="product-active" />
+                <Label htmlFor="product-active" className="dark:text-white">
+                  Make product active
+                </Label>
+              </div>
+            </div>
+            <DialogFooter>
+              <Button variant="outline" onClick={() => setShowCreateModal(false)}>
+                Cancel
+              </Button>
+              <Button
+                onClick={() => setShowCreateModal(false)}
+                className="bg-slate-900 hover:bg-slate-800 dark:bg-green-600 dark:hover:bg-green-500"
+              >
+                Add Product
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+      </div>
+    )
+  }
+
+  function AffiliatesContent() {
+    const [showCreateModal, setShowCreateModal] = useState(false)
+
+    return (
+      <div className="space-y-6">
+        <div className="flex justify-between items-center">
+          <div>
+            <h2 className="text-lg font-semibold dark:text-white">Affiliates</h2>
+            <p className="text-gray-600 dark:text-gray-400">Manage your affiliate program</p>
+          </div>
+          <Button
+            onClick={() => setShowCreateModal(true)}
+            className="bg-slate-900 hover:bg-slate-800 dark:bg-green-600 dark:hover:bg-green-500"
+          >
+            <Plus className="w-4 h-4 mr-2" />
+            Invite Affiliate
+          </Button>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          <Card className="dark:bg-gray-800 dark:border-gray-700">
+            <CardHeader>
+              <CardTitle className="text-sm font-medium dark:text-white">Active Affiliates</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold dark:text-white">47</div>
+              <p className="text-xs text-green-600 flex items-center">
+                <ArrowUpRight className="w-3 h-3 mr-1" />
+                +5 this month
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card className="dark:bg-gray-800 dark:border-gray-700">
+            <CardHeader>
+              <CardTitle className="text-sm font-medium dark:text-white">Commission Paid</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold dark:text-white">$8,234</div>
+              <p className="text-xs text-green-600 flex items-center">
+                <ArrowUpRight className="w-3 h-3 mr-1" />
+                +22.1% from last month
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card className="dark:bg-gray-800 dark:border-gray-700">
+            <CardHeader>
+              <CardTitle className="text-sm font-medium dark:text-white">Referral Revenue</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold dark:text-white">$45,678</div>
+              <p className="text-xs text-green-600 flex items-center">
+                <ArrowUpRight className="w-3 h-3 mr-1" />
+                +18.5% from last month
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card className="dark:bg-gray-800 dark:border-gray-700">
+            <CardHeader>
+              <CardTitle className="text-sm font-medium dark:text-white">Conversion Rate</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold dark:text-white">4.2%</div>
+              <p className="text-xs text-green-600 flex items-center">
+                <ArrowUpRight className="w-3 h-3 mr-1" />
+                +0.8% from last month
+              </p>
+            </CardContent>
+          </Card>
+        </div>
+
+        <Card className="dark:bg-gray-800 dark:border-gray-700">
+          <CardHeader>
+            <CardTitle className="dark:text-white">Top Affiliates</CardTitle>
+            <CardDescription className="dark:text-gray-400">Your highest performing affiliate partners</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              {[
+                { name: "Sarah Johnson", email: "sarah@example.com", sales: 23, commission: "$1,150", rate: "5%" },
+                { name: "Mike Chen", email: "mike@example.com", sales: 18, commission: "$900", rate: "5%" },
+                { name: "Emma Davis", email: "emma@example.com", sales: 15, commission: "$750", rate: "5%" },
+                { name: "Alex Rodriguez", email: "alex@example.com", sales: 12, commission: "$600", rate: "5%" },
+              ].map((affiliate, index) => (
+                <div
+                  key={index}
+                  className="flex items-center justify-between p-4 border dark:border-gray-600 rounded-lg"
+                >
+                  <div className="flex items-center space-x-4">
+                    <Avatar>
+                      <AvatarImage src={`/placeholder.svg?height=40&width=40`} />
+                      <AvatarFallback>
+                        {affiliate.name
+                          .split(" ")
+                          .map((n) => n[0])
+                          .join("")}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div>
+                      <h3 className="font-medium dark:text-white">{affiliate.name}</h3>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">{affiliate.email}</p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <p className="font-medium dark:text-white">{affiliate.sales} sales</p>
+                    <p className="text-sm text-green-600">
+                      {affiliate.commission} ({affiliate.rate})
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Invite Affiliate Modal */}
+        <Dialog open={showCreateModal} onOpenChange={setShowCreateModal}>
+          <DialogContent className="sm:max-w-[425px] dark:bg-gray-800 dark:border-gray-700">
+            <DialogHeader>
+              <DialogTitle className="dark:text-white">Invite Affiliate</DialogTitle>
+              <DialogDescription className="dark:text-gray-400">
+                Invite a new affiliate to join your program.
+              </DialogDescription>
+            </DialogHeader>
+            <div className="grid gap-4 py-4">
+              <div className="grid gap-2">
+                <Label htmlFor="affiliate-name" className="dark:text-white">
+                  Full Name
+                </Label>
+                <Input
+                  id="affiliate-name"
+                  placeholder="e.g., John Doe"
+                  className="dark:bg-gray-700 dark:border-gray-600"
+                />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="affiliate-email" className="dark:text-white">
+                  Email Address
+                </Label>
+                <Input
+                  id="affiliate-email"
+                  placeholder="e.g., john@example.com"
+                  type="email"
+                  className="dark:bg-gray-700 dark:border-gray-600"
+                />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="commission-rate" className="dark:text-white">
+                  Commission Rate (%)
+                </Label>
+                <Input
+                  id="commission-rate"
+                  placeholder="e.g., 5"
+                  type="number"
+                  className="dark:bg-gray-700 dark:border-gray-600"
+                />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="invite-message" className="dark:text-white">
+                  Personal Message (Optional)
+                </Label>
+                <Textarea
+                  id="invite-message"
+                  placeholder="Add a personal message to your invitation..."
+                  className="dark:bg-gray-700 dark:border-gray-600"
+                />
+              </div>
+            </div>
+            <DialogFooter>
+              <Button variant="outline" onClick={() => setShowCreateModal(false)}>
+                Cancel
+              </Button>
+              <Button
+                onClick={() => setShowCreateModal(false)}
+                className="bg-slate-900 hover:bg-slate-800 dark:bg-green-600 dark:hover:bg-green-500"
+              >
+                Send Invitation
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+      </div>
+    )
+  }
+
+  function SettingsContent() {
+    return (
+      <div className="space-y-6">
+        <div>
+          <h2 className="text-lg font-semibold dark:text-white">Settings</h2>
+          <p className="text-gray-600 dark:text-gray-400">Manage your account and preferences</p>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <Card className="dark:bg-gray-800 dark:border-gray-700">
+            <CardHeader>
+              <CardTitle className="dark:text-white">Account Information</CardTitle>
+              <CardDescription className="dark:text-gray-400">Update your account details</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="company" className="dark:text-white">
+                  Company Name
+                </Label>
+                <Input id="company" defaultValue="Acme Inc." className="dark:bg-gray-700 dark:border-gray-600" />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="email" className="dark:text-white">
+                  Email
+                </Label>
+                <Input
+                  id="email"
+                  type="email"
+                  defaultValue="john@acme.com"
+                  className="dark:bg-gray-700 dark:border-gray-600"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="phone" className="dark:text-white">
+                  Phone
+                </Label>
+                <Input id="phone" defaultValue="+1 (555) 123-4567" className="dark:bg-gray-700 dark:border-gray-600" />
+              </div>
+              <Button className="bg-slate-900 hover:bg-slate-800 dark:bg-green-600 dark:hover:bg-green-500">
+                Save Changes
+              </Button>
+            </CardContent>
+          </Card>
+
+          <Card className="dark:bg-gray-800 dark:border-gray-700">
+            <CardHeader>
+              <CardTitle className="dark:text-white">Payment Settings</CardTitle>
+              <CardDescription className="dark:text-gray-400">Configure your payment preferences</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="flex items-center justify-between">
                 <div>
-                  <h3 className="font-medium dark:text-white">{product.name}</h3>
+                  <Label className="dark:text-white">Auto Payouts</Label>
                   <p className="text-sm text-gray-600 dark:text-gray-400">
-                    {product.price} • {product.sales} sales
+                    Automatically transfer funds to your bank account
                   </p>
                 </div>
-                <div className="text-right">
-                  <p className="font-medium text-green-600">{product.revenue}</p>
-                  <Button variant="ghost" size="sm" className="dark:hover:bg-green-500/20">
-                    <Eye className="w-4 h-4 mr-1" />
-                    View
+                <Switch defaultChecked />
+              </div>
+              <div className="flex items-center justify-between">
+                <div>
+                  <Label className="dark:text-white">Email Notifications</Label>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">Receive email alerts for transactions</p>
+                </div>
+                <Switch defaultChecked />
+              </div>
+              <div className="flex items-center justify-between">
+                <div>
+                  <Label className="dark:text-white">Two-Factor Authentication</Label>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">Add an extra layer of security</p>
+                </div>
+                <Switch />
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="dark:bg-gray-800 dark:border-gray-700">
+            <CardHeader>
+              <CardTitle className="dark:text-white">API Keys</CardTitle>
+              <CardDescription className="dark:text-gray-400">Manage your API access</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="space-y-2">
+                <Label className="dark:text-white">Publishable Key</Label>
+                <div className="flex space-x-2">
+                  <Input
+                    value="pk_test_..."
+                    readOnly
+                    className="font-mono text-sm dark:bg-gray-700 dark:border-gray-600"
+                  />
+                  <Button variant="outline" size="icon" className="dark:hover:bg-green-500/20 bg-transparent">
+                    <Eye className="w-4 h-4" />
                   </Button>
                 </div>
               </div>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Add Product Modal */}
-      <Dialog open={showCreateModal} onOpenChange={setShowCreateModal}>
-        <DialogContent className="sm:max-w-[425px] dark:bg-gray-800 dark:border-gray-700">
-          <DialogHeader>
-            <DialogTitle className="dark:text-white">Add New Product</DialogTitle>
-            <DialogDescription className="dark:text-gray-400">Add a new product to your store.</DialogDescription>
-          </DialogHeader>
-          <div className="grid gap-4 py-4">
-            <div className="grid gap-2">
-              <Label htmlFor="product-name" className="dark:text-white">
-                Product Name
-              </Label>
-              <Input
-                id="product-name"
-                placeholder="e.g., Premium Course"
-                className="dark:bg-gray-700 dark:border-gray-600"
-              />
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="product-price" className="dark:text-white">
-                Price
-              </Label>
-              <Input
-                id="product-price"
-                placeholder="e.g., 99.99"
-                type="number"
-                className="dark:bg-gray-700 dark:border-gray-600"
-              />
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="product-category" className="dark:text-white">
-                Category
-              </Label>
-              <Select>
-                <SelectTrigger className="dark:bg-gray-700 dark:border-gray-600">
-                  <SelectValue placeholder="Select category" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="digital">Digital Product</SelectItem>
-                  <SelectItem value="physical">Physical Product</SelectItem>
-                  <SelectItem value="service">Service</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="product-description" className="dark:text-white">
-                Description
-              </Label>
-              <Textarea
-                id="product-description"
-                placeholder="Describe your product..."
-                className="dark:bg-gray-700 dark:border-gray-600"
-              />
-            </div>
-            <div className="flex items-center space-x-2">
-              <Switch id="product-active" />
-              <Label htmlFor="product-active" className="dark:text-white">
-                Make product active
-              </Label>
-            </div>
-          </div>
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setShowCreateModal(false)}>
-              Cancel
-            </Button>
-            <Button
-              onClick={() => setShowCreateModal(false)}
-              className="bg-slate-900 hover:bg-slate-800 dark:bg-green-600 dark:hover:bg-green-500"
-            >
-              Add Product
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-    </div>
-  )
-}
-
-function AffiliatesContent() {
-  const [showCreateModal, setShowCreateModal] = useState(false)
-
-  return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <div>
-          <h2 className="text-lg font-semibold dark:text-white">Affiliates</h2>
-          <p className="text-gray-600 dark:text-gray-400">Manage your affiliate program</p>
-        </div>
-        <Button
-          onClick={() => setShowCreateModal(true)}
-          className="bg-slate-900 hover:bg-slate-800 dark:bg-green-600 dark:hover:bg-green-500"
-        >
-          <Plus className="w-4 h-4 mr-2" />
-          Invite Affiliate
-        </Button>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <Card className="dark:bg-gray-800 dark:border-gray-700">
-          <CardHeader>
-            <CardTitle className="text-sm font-medium dark:text-white">Active Affiliates</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold dark:text-white">47</div>
-            <p className="text-xs text-green-600 flex items-center">
-              <ArrowUpRight className="w-3 h-3 mr-1" />
-              +5 this month
-            </p>
-          </CardContent>
-        </Card>
-
-        <Card className="dark:bg-gray-800 dark:border-gray-700">
-          <CardHeader>
-            <CardTitle className="text-sm font-medium dark:text-white">Commission Paid</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold dark:text-white">$8,234</div>
-            <p className="text-xs text-green-600 flex items-center">
-              <ArrowUpRight className="w-3 h-3 mr-1" />
-              +22.1% from last month
-            </p>
-          </CardContent>
-        </Card>
-
-        <Card className="dark:bg-gray-800 dark:border-gray-700">
-          <CardHeader>
-            <CardTitle className="text-sm font-medium dark:text-white">Referral Revenue</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold dark:text-white">$45,678</div>
-            <p className="text-xs text-green-600 flex items-center">
-              <ArrowUpRight className="w-3 h-3 mr-1" />
-              +18.5% from last month
-            </p>
-          </CardContent>
-        </Card>
-
-        <Card className="dark:bg-gray-800 dark:border-gray-700">
-          <CardHeader>
-            <CardTitle className="text-sm font-medium dark:text-white">Conversion Rate</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold dark:text-white">4.2%</div>
-            <p className="text-xs text-green-600 flex items-center">
-              <ArrowUpRight className="w-3 h-3 mr-1" />
-              +0.8% from last month
-            </p>
-          </CardContent>
-        </Card>
-      </div>
-
-      <Card className="dark:bg-gray-800 dark:border-gray-700">
-        <CardHeader>
-          <CardTitle className="dark:text-white">Top Affiliates</CardTitle>
-          <CardDescription className="dark:text-gray-400">Your highest performing affiliate partners</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            {[
-              { name: "Sarah Johnson", email: "sarah@example.com", sales: 23, commission: "$1,150", rate: "5%" },
-              { name: "Mike Chen", email: "mike@example.com", sales: 18, commission: "$900", rate: "5%" },
-              { name: "Emma Davis", email: "emma@example.com", sales: 15, commission: "$750", rate: "5%" },
-              { name: "Alex Rodriguez", email: "alex@example.com", sales: 12, commission: "$600", rate: "5%" },
-            ].map((affiliate, index) => (
-              <div key={index} className="flex items-center justify-between p-4 border dark:border-gray-600 rounded-lg">
-                <div className="flex items-center space-x-4">
-                  <Avatar>
-                    <AvatarImage src={`/placeholder.svg?height=40&width=40`} />
-                    <AvatarFallback>
-                      {affiliate.name
-                        .split(" ")
-                        .map((n) => n[0])
-                        .join("")}
-                    </AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <h3 className="font-medium dark:text-white">{affiliate.name}</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">{affiliate.email}</p>
-                  </div>
-                </div>
-                <div className="text-right">
-                  <p className="font-medium dark:text-white">{affiliate.sales} sales</p>
-                  <p className="text-sm text-green-600">
-                    {affiliate.commission} ({affiliate.rate})
-                  </p>
+              <div className="space-y-2">
+                <Label className="dark:text-white">Secret Key</Label>
+                <div className="flex space-x-2">
+                  <Input
+                    value="sk_test_..."
+                    readOnly
+                    className="font-mono text-sm dark:bg-gray-700 dark:border-gray-600"
+                    type="password"
+                  />
+                  <Button variant="outline" size="icon" className="dark:hover:bg-green-500/20 bg-transparent">
+                    <Eye className="w-4 h-4" />
+                  </Button>
                 </div>
               </div>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
+              <Button variant="outline" className="dark:hover:bg-green-500/20 bg-transparent">
+                Generate New Keys
+              </Button>
+            </CardContent>
+          </Card>
 
-      {/* Invite Affiliate Modal */}
-      <Dialog open={showCreateModal} onOpenChange={setShowCreateModal}>
-        <DialogContent className="sm:max-w-[425px] dark:bg-gray-800 dark:border-gray-700">
-          <DialogHeader>
-            <DialogTitle className="dark:text-white">Invite Affiliate</DialogTitle>
-            <DialogDescription className="dark:text-gray-400">
-              Invite a new affiliate to join your program.
-            </DialogDescription>
-          </DialogHeader>
-          <div className="grid gap-4 py-4">
-            <div className="grid gap-2">
-              <Label htmlFor="affiliate-name" className="dark:text-white">
-                Full Name
-              </Label>
-              <Input
-                id="affiliate-name"
-                placeholder="e.g., John Doe"
-                className="dark:bg-gray-700 dark:border-gray-600"
-              />
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="affiliate-email" className="dark:text-white">
-                Email Address
-              </Label>
-              <Input
-                id="affiliate-email"
-                placeholder="e.g., john@example.com"
-                type="email"
-                className="dark:bg-gray-700 dark:border-gray-600"
-              />
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="commission-rate" className="dark:text-white">
-                Commission Rate (%)
-              </Label>
-              <Input
-                id="commission-rate"
-                placeholder="e.g., 5"
-                type="number"
-                className="dark:bg-gray-700 dark:border-gray-600"
-              />
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="invite-message" className="dark:text-white">
-                Personal Message (Optional)
-              </Label>
-              <Textarea
-                id="invite-message"
-                placeholder="Add a personal message to your invitation..."
-                className="dark:bg-gray-700 dark:border-gray-600"
-              />
-            </div>
-          </div>
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setShowCreateModal(false)}>
-              Cancel
-            </Button>
-            <Button
-              onClick={() => setShowCreateModal(false)}
-              className="bg-slate-900 hover:bg-slate-800 dark:bg-green-600 dark:hover:bg-green-500"
-            >
-              Send Invitation
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-    </div>
-  )
-}
-
-function SettingsContent() {
-  return (
-    <div className="space-y-6">
-      <div>
-        <h2 className="text-lg font-semibold dark:text-white">Settings</h2>
-        <p className="text-gray-600 dark:text-gray-400">Manage your account and preferences</p>
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card className="dark:bg-gray-800 dark:border-gray-700">
-          <CardHeader>
-            <CardTitle className="dark:text-white">Account Information</CardTitle>
-            <CardDescription className="dark:text-gray-400">Update your account details</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="company" className="dark:text-white">
-                Company Name
-              </Label>
-              <Input id="company" defaultValue="Acme Inc." className="dark:bg-gray-700 dark:border-gray-600" />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="email" className="dark:text-white">
-                Email
-              </Label>
-              <Input
-                id="email"
-                type="email"
-                defaultValue="john@acme.com"
-                className="dark:bg-gray-700 dark:border-gray-600"
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="phone" className="dark:text-white">
-                Phone
-              </Label>
-              <Input id="phone" defaultValue="+1 (555) 123-4567" className="dark:bg-gray-700 dark:border-gray-600" />
-            </div>
-            <Button className="bg-slate-900 hover:bg-slate-800 dark:bg-green-600 dark:hover:bg-green-500">
-              Save Changes
-            </Button>
-          </CardContent>
-        </Card>
-
-        <Card className="dark:bg-gray-800 dark:border-gray-700">
-          <CardHeader>
-            <CardTitle className="dark:text-white">Payment Settings</CardTitle>
-            <CardDescription className="dark:text-gray-400">Configure your payment preferences</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <Label className="dark:text-white">Auto Payouts</Label>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
-                  Automatically transfer funds to your bank account
+          <Card className="dark:bg-gray-800 dark:border-gray-700">
+            <CardHeader>
+              <CardTitle className="dark:text-white">Danger Zone</CardTitle>
+              <CardDescription className="dark:text-gray-400">Irreversible and destructive actions</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="p-4 border border-red-200 dark:border-red-800 rounded-lg bg-red-50 dark:bg-red-900/20">
+                <h3 className="font-medium text-red-900 dark:text-red-200 mb-2">Delete Account</h3>
+                <p className="text-sm text-red-700 dark:text-red-300 mb-4">
+                  Once you delete your account, there is no going back. Please be certain.
                 </p>
+                <Button variant="destructive">Delete Account</Button>
               </div>
-              <Switch defaultChecked />
-            </div>
-            <div className="flex items-center justify-between">
-              <div>
-                <Label className="dark:text-white">Email Notifications</Label>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Receive email alerts for transactions</p>
-              </div>
-              <Switch defaultChecked />
-            </div>
-            <div className="flex items-center justify-between">
-              <div>
-                <Label className="dark:text-white">Two-Factor Authentication</Label>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Add an extra layer of security</p>
-              </div>
-              <Switch />
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="dark:bg-gray-800 dark:border-gray-700">
-          <CardHeader>
-            <CardTitle className="dark:text-white">API Keys</CardTitle>
-            <CardDescription className="dark:text-gray-400">Manage your API access</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="space-y-2">
-              <Label className="dark:text-white">Publishable Key</Label>
-              <div className="flex space-x-2">
-                <Input
-                  value="pk_test_..."
-                  readOnly
-                  className="font-mono text-sm dark:bg-gray-700 dark:border-gray-600"
-                />
-                <Button variant="outline" size="icon" className="dark:hover:bg-green-500/20 bg-transparent">
-                  <Eye className="w-4 h-4" />
-                </Button>
-              </div>
-            </div>
-            <div className="space-y-2">
-              <Label className="dark:text-white">Secret Key</Label>
-              <div className="flex space-x-2">
-                <Input
-                  value="sk_test_..."
-                  readOnly
-                  className="font-mono text-sm dark:bg-gray-700 dark:border-gray-600"
-                  type="password"
-                />
-                <Button variant="outline" size="icon" className="dark:hover:bg-green-500/20 bg-transparent">
-                  <Eye className="w-4 h-4" />
-                </Button>
-              </div>
-            </div>
-            <Button variant="outline" className="dark:hover:bg-green-500/20 bg-transparent">
-              Generate New Keys
-            </Button>
-          </CardContent>
-        </Card>
-
-        <Card className="dark:bg-gray-800 dark:border-gray-700">
-          <CardHeader>
-            <CardTitle className="dark:text-white">Danger Zone</CardTitle>
-            <CardDescription className="dark:text-gray-400">Irreversible and destructive actions</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="p-4 border border-red-200 dark:border-red-800 rounded-lg bg-red-50 dark:bg-red-900/20">
-              <h3 className="font-medium text-red-900 dark:text-red-200 mb-2">Delete Account</h3>
-              <p className="text-sm text-red-700 dark:text-red-300 mb-4">
-                Once you delete your account, there is no going back. Please be certain.
-              </p>
-              <Button variant="destructive">Delete Account</Button>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        </div>
       </div>
-    </div>
+    )
+  }
+
+  return (
+    <TooltipProvider>
+      <div className="flex h-screen bg-gray-50 dark:bg-gray-900">
+        {/* Sidebar */}
+        <div
+          className={cn(
+            "bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 flex flex-col transition-all duration-300 ease-in-out",
+            sidebarCollapsed ? "w-16" : "w-64",
+          )}
+        >
+          {/* Logo */}
+          <div className="p-6 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
+            <div className={cn("flex items-center space-x-2", sidebarCollapsed && "justify-center")}>
+              <div className="w-8 h-8 bg-gradient-to-r from-slate-900 to-green-500 rounded-lg flex items-center justify-center">
+                <CreditCard className="w-5 h-5 text-white" />
+              </div>
+              {!sidebarCollapsed && <span className="text-xl font-bold text-slate-900 dark:text-white">Payflox</span>}
+            </div>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
+              className="h-8 w-8 dark:hover:bg-green-500/20 hover:bg-gray-100"
+            >
+              {sidebarCollapsed ? <Menu className="w-4 h-4" /> : <ChevronLeft className="w-4 h-4" />}
+            </Button>
+          </div>
+
+          {/* Navigation */}
+          <nav className="flex-1 p-4">
+            <ul className="space-y-2">
+              {sidebarItems.map((item) => {
+                const isActive = activeTab === item.id
+                const buttonContent = (
+                  <button
+                    onClick={() => setActiveTab(item.id)}
+                    className={cn(
+                      "w-full flex items-center text-left transition-colors rounded-lg",
+                      sidebarCollapsed ? "justify-center p-3" : "space-x-3 px-3 py-2",
+                      isActive
+                        ? "bg-slate-900 dark:bg-green-600 text-white"
+                        : "text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-green-500/20 hover:text-slate-900 dark:hover:text-green-400",
+                    )}
+                  >
+                    <item.icon className="w-5 h-5 flex-shrink-0" />
+                    {!sidebarCollapsed && <span className="font-medium">{item.label}</span>}
+                  </button>
+                )
+
+                return (
+                  <li key={item.id}>
+                    {sidebarCollapsed ? (
+                      <Tooltip>
+                        <TooltipTrigger asChild>{buttonContent}</TooltipTrigger>
+                        <TooltipContent side="right">
+                          <p>{item.label}</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    ) : (
+                      buttonContent
+                    )}
+                  </li>
+                )
+              })}
+            </ul>
+          </nav>
+
+          {/* User Profile */}
+          <div className="p-4 border-t border-gray-200 dark:border-gray-700">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="ghost"
+                  className={cn(
+                    "w-full p-2 dark:hover:bg-green-500/20 hover:bg-gray-100",
+                    sidebarCollapsed ? "justify-center" : "justify-start",
+                  )}
+                >
+                  <Avatar className="w-8 h-8">
+                    <AvatarImage src="/placeholder.svg?height=32&width=32" />
+                    <AvatarFallback>JD</AvatarFallback>
+                  </Avatar>
+                  {!sidebarCollapsed && (
+                    <div className="text-left ml-3">
+                      <div className="font-medium text-sm dark:text-white">John Doe</div>
+                      <div className="text-xs text-gray-500 dark:text-gray-400">john@company.com</div>
+                    </div>
+                  )}
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56">
+                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>
+                  <Settings className="mr-2 h-4 w-4" />
+                  Settings
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <LogOut className="mr-2 h-4 w-4" />
+                  Log out
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+        </div>
+
+        {/* Main Content */}
+        <div className="flex-1 flex flex-col overflow-hidden">
+          {/* Header */}
+          <header className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <h1 className="text-2xl font-bold text-slate-900 dark:text-white capitalize">
+                  {activeTab.replace("-", " ")}
+                </h1>
+              </div>
+              <div className="flex items-center space-x-4">
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                  <Input placeholder="Search..." className="pl-10 w-64 dark:bg-gray-700 dark:border-gray-600" />
+                </div>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={toggleDarkMode}
+                  className="dark:hover:bg-green-500/20 hover:bg-gray-100"
+                >
+                  {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+                </Button>
+                <Button variant="ghost" size="icon" className="dark:hover:bg-green-500/20 hover:bg-gray-100">
+                  <Bell className="w-5 h-5" />
+                </Button>
+              </div>
+            </div>
+          </header>
+
+          {/* Page Content */}
+          <main className="flex-1 overflow-auto p-6 bg-gray-50 dark:bg-gray-900">{renderContent()}</main>
+        </div>
+      </div>
+    </TooltipProvider>
   )
 }
